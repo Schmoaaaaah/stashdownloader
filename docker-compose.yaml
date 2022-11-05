@@ -1,0 +1,26 @@
+version: '3'
+services:
+  stash:
+    image: stashapp/stash:latest
+    container_name: stash
+    restart: unless-stopped
+    ports:
+      - 9999:9999
+    volumes:
+      - ./media:/media
+      - ./config:/root/.stash
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+  downloader:
+    image: shogun1903/stash-downloader:latest
+    build: .
+    container_name: stash-downloader
+    restart: "no"
+    volumes:
+      - ./media:/media
+      - ./links.txt:/app/links.txt
+    environment:
+      - STASH_DOMAIN=stash
+      - STASH_PORT=9999
