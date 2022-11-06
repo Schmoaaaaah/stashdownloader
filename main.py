@@ -16,6 +16,7 @@ ydl_opts = {
     'writeinfojson': True,
     'quiet': True,
 }
+mediapath=os.environ.get("STASH_MEDIA_PATH")
 
 
 def main():
@@ -30,11 +31,10 @@ def main():
             else:
                 log.LogInfo("Download of Video: " +
                             info.get('title')+" successful")
-                stashpath = "/media/" + \
-                    info.get('webpage_url_domain')+"/" + \
-                    info.get('title')+"."+info.get('ext')
-                stash.scan_for_new_files()
-                sleep(5)
+                stashpath = mediapath + \
+                    info.get('webpage_url_domain')+"/"
+                stash.metadata_scan(stashpath)
+                sleep(10)
                 scenes = stash.findScenesByPathRegex(
                     r'.*\.(?:[mM][pP]4|[wW][mM][vV])$')
                 for scene in scenes:
@@ -67,5 +67,6 @@ def main():
                                     updatescene['id']+" with URL: "+line)
                         stash.updateScene(updatescene)
     f.close()
+
 
 main()

@@ -24,3 +24,4 @@ services:
     environment:
       - STASH_DOMAIN=stash
       - STASH_PORT=9999
+      - STASH_MEDIA_PATH=/media/

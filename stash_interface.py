@@ -61,6 +61,26 @@ class StashInterface:
                     response.status_code, response.content, query, variables)
             )
 
+    def metadata_scan(self, paths: list = []):
+        query = """
+		mutation metadataScan($input:ScanMetadataInput!) {
+			metadataScan(input: $input)
+		}
+		"""
+        variables = {
+            'input': {
+                'paths': paths,
+                'useFileMetadata': False,
+                'stripFileExtension': False,
+                'scanGeneratePreviews': False,
+                'scanGenerateImagePreviews': False,
+                'scanGenerateSprites': False,
+                'scanGeneratePhashes': True
+            }
+        }
+        result = self.__callGraphQL(query, variables)
+        return result
+
     def scan_for_new_files(self):
         try:
             query = """
