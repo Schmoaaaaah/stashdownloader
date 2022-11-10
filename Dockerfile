@@ -11,7 +11,11 @@ RUN pip install -r requirements.txt
 
 COPY ./log.py /app/log.py
 COPY ./stash_interface.py /app/stash_interface.py
+COPY ./downloader.py /app/downloader.py
 COPY main.py /app/main.py
+
+
+EXPOSE 5000
 
 
 CMD ["python", "main.py"]

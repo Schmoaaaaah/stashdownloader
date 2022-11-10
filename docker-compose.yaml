@@ -18,6 +18,8 @@ services:
     build: .
     container_name: stash-downloader
     restart: "no"
+    ports:
+      - 5000:5000
     volumes:
       - ./media:/media
       - ./links.txt:/app/links.txt
@@ -25,3 +27,4 @@ services:
       - STASH_DOMAIN=stash
       - STASH_PORT=9999
       - STASH_MEDIA_PATH=/media/
+      - DEBUG=false
