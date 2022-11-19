@@ -22,9 +22,12 @@ services:
       - 5000:5000
     volumes:
       - ./media:/media
-      - ./links.txt:/app/links.txt
     environment:
       - STASH_DOMAIN=stash
       - STASH_PORT=9999
       - STASH_MEDIA_PATH=/media/
       - DEBUG=false
+      - STASH_STAR_DOMAIN=stash
+      - STASH_STAR_PORT=9999
+      - STASH_STAR_LIB=stars
+      - STASH_SCAN_TIMEOUT=5
