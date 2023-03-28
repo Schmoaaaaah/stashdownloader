@@ -1,20 +1,33 @@
 version: '3'
 services:
-  stash:
+  stash1:
     image: stashapp/stash:latest
-    container_name: stash
+    container_name: stash1
     restart: unless-stopped
     ports:
       - 9999:9999
     volumes:
       - ./media:/media
-      - ./config:/root/.stash
+      - ./config/stash1:/root/.stash
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+  stash2:
+    image: stashapp/stash:latest
+    container_name: stash2
+    restart: unless-stopped
+    ports:
+      - 9998:9999
+    volumes:
+      - ./media:/media
+      - ./config/stash2:/root/.stash
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Berlin
   downloader:
-    image: shogun1903/stash-downloader:latest
+    #image: shogun1903/stash-downloader:latest
     build: .
     container_name: stash-downloader
     restart: "no"
@@ -23,11 +36,6 @@ services:
     volumes:
       - ./media:/media
     environment:
-      - STASH_DOMAIN=stash
-      - STASH_PORT=9999
       - STASH_MEDIA_PATH=/media/
       - DEBUG=false
-      - STASH_STAR_DOMAIN=stash
-      - STASH_STAR_PORT=9999
-      - STASH_STAR_LIB=stars
       - STASH_SCAN_TIMEOUT=5
